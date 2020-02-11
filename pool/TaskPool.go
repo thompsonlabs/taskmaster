@@ -1,7 +1,7 @@
 package pool
 
 import (
-	"taskmaster/models"
+	"github.com/thompsonlabs/taskmaster/models"
 )
 
 //TaskPool - Top level TaskPool, allows for tasks to be queued and then subsequently asynchronously processed

@@ -3,10 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/thompsonlabs/taskmaster/pool"
 	"os"
 	"strconv"
-	"taskmaster"
-	"taskmaster/pool"
 	"time"
 )
 
@@ -22,10 +21,8 @@ func main() {
 		NewElasticTaskPool(60000, 5).
 		SetMaxQueueCount(50).
 		SetMaxWorkerCount(20).
-		
-		Build()
-
-	taskpool.SetCustomErrorFunction(MyCustomErrorFunction)
+		SetCustomErrorFunction(MyCustomErrorFunction)
+	Build()
 
 	go launchTaskPool(30)
 

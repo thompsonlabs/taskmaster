@@ -2,8 +2,8 @@ package pool
 
 import (
 	"fmt"
+	"github.com/thompsonlabs/taskmaster/models"
 	"sync"
-	"taskmaster/models"
 	"time"
 )
 
