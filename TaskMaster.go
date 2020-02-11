@@ -60,6 +60,10 @@ func (tmpb *PoolBuilder) SetMaxQueueCount(maxQueueCount int) *PoolBuilder {
 	return tmpb
 }
 
+//SetCustomErrorFunction - Allows a custom, developer-defined error function to be associated
+//                         with the pool.When specified a call will be made to this function
+//                         each time a Pool worker (or more specifically the go routine its associated with)
+//                         encounter an unrecoverable error (i.e a panic)
 func (tmpb *PoolBuilder) SetCustomErrorFunction(errorFunction func(interface{})) *PoolBuilder {
 
 	tmpb.customErrorFunction = errorFunction
