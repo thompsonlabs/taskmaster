@@ -1,18 +1,17 @@
 package taskmaster
 
 import (
-	"taskmaster/pool"
+	"github.com/thompsonlabs/taskmaster/pool"
 )
 
 var poolBuilderInstance *PoolBuilder
 
 //PoolBuilder - Builds a new TaskMaster TaskPool
 type PoolBuilder struct {
-	maxWorkerCount      int
-	maxQueueCount       int
-	poolType            PoolType
-	customErrorFunction func(interface{})
-
+	maxWorkerCount         int
+	maxQueueCount          int
+	poolType               PoolType
+	customErrorFunction    func(interface{})
 	maxCachePeriodInMillis int64
 	minWorkerCount         int
 }
