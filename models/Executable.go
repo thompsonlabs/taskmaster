@@ -1,9 +1,10 @@
 package models
 
-//Executable - Models a single executable that may be passed into a task queue.
+//Executable - Developer-defined tasks MUST implment this interface in order to
+//             to be executed via a TaskPool thread.
 type Executable interface {
 
 	//Execute - Execute interface method, this will be overriden by implementers of this interface
-	//          to include logic that is required to be ran on the in a TaskQueue thread.
+	//          to include logic that is required to be ran in a TaskPool thread.
 	Execute()
 }
