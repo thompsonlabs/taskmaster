@@ -7,7 +7,17 @@ import (
 	"time"
 )
 
-//CachedTaskPool Default implementation of a TaskPool
+//CachedTaskPool - A CachedTaskPool initially starts up with a Worker pool count of zero and
+//                 then proceeds to dynamically scales up its Workers to accomadate the submission
+//                 of new tasks as necessary. Where possible the pool will ALWAYS seek to use existing
+//                 (cached) Workers to service newly submitted tasks; Workers ONLY remain
+//                 in the pool for as long as absoutely necessary and are promptly evicted after
+//                 "maxCachePeriodInMillis" duration specified to the constructor elapses, which may
+//                 well result in the pool count returning to zero following periods of prolonged inactivity.
+//
+//                 CachedTaskPool is the perfect choice for use cases where minimisation of system resource
+//                 consumption is paramount as Worker Threads are ONLY created and indeed retained in the pool for as
+//                 long as they are required and not a moment longer.
 type CachedTaskPool struct {
 	running              bool
 	maxWorkerCount       int

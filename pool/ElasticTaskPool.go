@@ -7,7 +7,17 @@ import (
 	"time"
 )
 
-//ElasticTaskPool Default implementation of a TaskPool
+//ElasticTaskPool - An Elastic TaskPool dynamically scales up AND down to accomadate the submital of tasks for
+//                  execution. On instantiation a min and max Worker pool value is specified and the pool
+//                  will then expand and contract to these values respectively in line with the load its
+//                  required to handle. Idle Workers in the pool over and above the specified minimum will be
+//                  automatically evicted in due course as part of the pools aforementioned contraction process.
+//
+//                  ElasticTaskPool is a happy medium between the other TaskPool varients namely:
+//                  1- FixedTaskPool(resource intensive/performant)
+//                  2- CachedTaskPool(resource conserving/averagely performant)
+//                  As it allows for there to always be some amount of dedicated pool Worker resources on-hand to
+//                  immediately service tasks and the ability to scale up (and back down) from there as necessary.
 type ElasticTaskPool struct {
 	running              bool
 	maxWorkerCount       int

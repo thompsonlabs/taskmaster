@@ -7,7 +7,15 @@ import (
 	"time"
 )
 
-//FixedTaskPool Default implementation of a TaskPool
+//FixedTaskPool - A FixedTaskPool starts up with a fixed Worker count (as specified at the time the pool is built)
+//                and from that point forward maintains Its Worker count at this constant value until such time
+//                that the pool is explitly shutdown or the period specified to the Wait() method elapses
+//                (which ever occurs first).
+//
+//                FixedTaskPools are perfect for use cases where there is some esitimate of the load the
+//                pool is likely to be expected to accomadate and where fast execution is required since
+//                there will always be fully initialised Workers ready to service submitted requests and thus
+//                zero overhead related to the dynamic spwaning of new Workers on-demand.
 type FixedTaskPool struct {
 	running             bool
 	maxWorkerCount      int
