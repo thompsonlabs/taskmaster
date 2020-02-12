@@ -52,8 +52,7 @@ func (tmpb *PoolBuilder) SetMaxWorkerCount(maxWorkerCount int) *PoolBuilder {
 	return tmpb
 }
 
-//SetMaxQueueCount  - Set the resulting TaskPool's Max Queue Count; this is the max number of tasks that may be
-//                    queued for execution and defaults to 100.
+//SetMaxQueueCount  - Set the resulting TaskPool's Max Queue Count; this is the max number of tasks that may be queued for execution and defaults to 100.
 func (tmpb *PoolBuilder) SetMaxQueueCount(maxQueueCount int) *PoolBuilder {
 
 	tmpb.maxQueueCount = maxQueueCount
