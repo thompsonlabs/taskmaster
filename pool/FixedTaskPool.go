@@ -7,15 +7,7 @@ import (
 	"time"
 )
 
-//FixedTaskPool - A FixedTaskPool starts up with a fixed Worker count (as specified at the time the pool is built)
-//                and from that point forward maintains Its Worker count at this constant value until such time
-//                that the pool is explitly shutdown or the period specified to the Wait() method elapses
-//                (which ever occurs first).
-//
-//                FixedTaskPools are perfect for use cases where there is some esitimate of the load the
-//                pool is likely to be expected to accomadate and where fast execution is required since
-//                there will always be fully initialised Workers ready to service submitted requests and thus
-//                zero overhead related to the dynamic spwaning of new Workers on-demand.
+//FixedTaskPool - A FixedTaskPool starts up with a fixed Worker count (as specified at the time the pool is built) and from that point forward maintains Its Worker count at this constant value until such time that the pool is explitly shutdown or the period specified to the Wait() method elapses (which ever occurs first).
 type FixedTaskPool struct {
 	running             bool
 	maxWorkerCount      int
@@ -66,9 +58,7 @@ func (ftp *FixedTaskPool) StartUp() {
 
 }
 
-//ShutDown - ShutsDown the entire pool. All currently executing tasks will be permitted to complete
-//           their respective operations before the pool is gracefully shutdown additionally
-//           no further tasks will be accepted for execution following a call to this routine.
+//ShutDown - ShutsDown the entire pool. All currently executing tasks will be permitted to complete their respective operations before the pool is gracefully shutdown additionally no further tasks will be accepted for execution following a call to this routine.
 func (ftp *FixedTaskPool) ShutDown() {
 
 	ftp.workersLock.Lock()
@@ -91,8 +81,7 @@ func (ftp *FixedTaskPool) getTaskQueue() *[]models.Executable {
 	return &ftp.taskQueue
 }
 
-//IsRunning - Returns a boolean flag which indicates whether or not this TaskPool instance is
-//            currently running, will return TRUE where this is the case and FALSE otherwise.
+//IsRunning - Returns a boolean flag which indicates whether or not this TaskPool instance is currently running, will return TRUE where this is the case and FALSE otherwise.
 func (ftp *FixedTaskPool) IsRunning() bool {
 
 	return ftp.running
@@ -107,8 +96,7 @@ func (ftp *FixedTaskPool) SubmitTask(task models.Executable) {
 
 }
 
-//GetNextTask - Removes and returns the next task in the queue, if there are no
-//              tasks in the queue nil is returned.
+//GetNextTask - Removes and returns the next task in the queue, if there are no tasks in the queue nil is returned.
 func (ftp *FixedTaskPool) GetNextTask() models.Executable {
 
 	ftp.taskQueueLock.Lock()
@@ -205,8 +193,7 @@ func (ftp *FixedTaskPool) AppendWorkers(amount int) int {
 
 }
 
-//Wait - Causes the current go routine to wait on this taskpool until the specified
-//       wait time has elapsed; a wait time value of 0 may be specified to wait indefinitely.
+//Wait - Causes the current go routine to wait on this taskpool until the specified wait time has elapsed; a wait time value of 0 may be specified to wait indefinitely.
 func (ftp *FixedTaskPool) Wait(waitTimeInMillis int64) {
 
 	if waitTimeInMillis > 0 {
@@ -223,10 +210,7 @@ func (ftp *FixedTaskPool) GetQueueCount() int {
 	return len(ftp.taskQueue)
 }
 
-//SetCustomErrorFunction - Allows a developer-defined custom error function to be
-//                         associated with the taskpool instance. This function will
-//                         be called each time a taskpool worker encounters an error
-//                         whilst processing a task.
+//SetCustomErrorFunction - Allows a developer-defined custom error function to be associated with the taskpool instance. This function will be called each time a taskpool worker encounters an error whilst processing a task.
 func (ftp *FixedTaskPool) SetCustomErrorFunction(customErrorFunction func(interface{})) {
 
 	ftp.customErrorFunction = customErrorFunction

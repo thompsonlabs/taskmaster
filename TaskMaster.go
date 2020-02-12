@@ -44,8 +44,7 @@ func (tmpb *PoolBuilder) NewElasticTaskPool(maxCachePeriodInMillis int64, minWor
 	return tmpb
 }
 
-//SetMaxWorkerCount  - Set the resulting TaskPool's Max Worker Count; defaults to 10
-//                     and each worker occupies its own Go Routine.
+//SetMaxWorkerCount  - Set the resulting TaskPool's Max Worker Count; defaults to 10 and each worker occupies its own Go Routine.
 func (tmpb *PoolBuilder) SetMaxWorkerCount(maxWorkerCount int) *PoolBuilder {
 
 	tmpb.maxWorkerCount = maxWorkerCount
@@ -59,10 +58,7 @@ func (tmpb *PoolBuilder) SetMaxQueueCount(maxQueueCount int) *PoolBuilder {
 	return tmpb
 }
 
-//SetCustomErrorFunction - Allows a custom, developer-defined error function to be associated
-//                         with the pool.When specified a call will be made to this function
-//                         each time a Pool worker (or more specifically the go routine its associated with)
-//                         encounter an unrecoverable error (i.e a panic)
+//SetCustomErrorFunction - Allows a custom, developer-defined error function to be associated with the pool.When specified a call will be made to this function each time a Pool worker (or more specifically the go routine its associated with) encounter an unrecoverable error (i.e a panic)
 func (tmpb *PoolBuilder) SetCustomErrorFunction(errorFunction func(interface{})) *PoolBuilder {
 
 	tmpb.customErrorFunction = errorFunction

@@ -7,17 +7,7 @@ import (
 	"time"
 )
 
-//ElasticTaskPool - An Elastic TaskPool dynamically scales up AND down to accomadate the submital of tasks for
-//                  execution. On instantiation a min and max Worker pool value is specified and the pool
-//                  will then expand and contract to these values respectively in line with the load its
-//                  required to handle. Idle Workers in the pool over and above the specified minimum will be
-//                  automatically evicted in due course as part of the pools aforementioned contraction process.
-//
-//                  ElasticTaskPool is a happy medium between the other TaskPool varients namely:
-//                  1- FixedTaskPool(resource intensive/performant)
-//                  2- CachedTaskPool(resource conserving/averagely performant)
-//                  As it allows for there to always be some amount of dedicated pool Worker resources on-hand to
-//                  immediately service tasks and the ability to scale up (and back down) from there as necessary.
+//ElasticTaskPool - An Elastic TaskPool dynamically scales up AND down to accomadate the submital of tasks for execution. On instantiation a min and max Worker pool value is specified and the pool will then expand and contract to these values respectively in line with the load its required to handle. Idle Workers in the pool over and above the specified minimum will be automatically evicted in due course as part of the pools aforementioned contraction process.
 type ElasticTaskPool struct {
 	running              bool
 	maxWorkerCount       int
@@ -63,9 +53,7 @@ func (etp *ElasticTaskPool) StartUp() {
 
 }
 
-//ShutDown - ShutsDown the entire pool. All currently executing tasks will be permitted to complete
-//           their respective operations before the pool is gracefully shutdown additionally
-//           no further tasks will be accepted for execution following a call to this routine.
+//ShutDown - ShutsDown the entire pool. All currently executing tasks will be permitted to complete their respective operations before the pool is gracefully shutdown additionally no further tasks will be accepted for execution following a call to this routine.
 func (etp *ElasticTaskPool) ShutDown() {
 
 	etp.waitGroup.Add(-1)
@@ -90,8 +78,7 @@ func (etp *ElasticTaskPool) getTaskQueue() *[]models.Executable {
 	return &etp.taskQueue
 }
 
-//IsRunning - Returns a boolean flag which indicates whether or not this TaskPool instance is
-//            currently running, will return TRUE where this is the case and FALSE otherwise.
+//IsRunning - Returns a boolean flag which indicates whether or not this TaskPool instance is currently running, will return TRUE where this is the case and FALSE otherwise.
 func (etp *ElasticTaskPool) IsRunning() bool {
 
 	return etp.running
@@ -114,8 +101,7 @@ func (etp *ElasticTaskPool) SubmitTask(task models.Executable) {
 
 }
 
-//GetNextTask - Removes and returns the next task in the queue, if there are no
-//              tasks in the queue nil is returned.
+//GetNextTask - Removes and returns the next task in the queue, if there are no tasks in the queue nil is returned.
 func (etp *ElasticTaskPool) GetNextTask() models.Executable {
 
 	etp.taskQueueLock.Lock()
@@ -212,8 +198,7 @@ func (etp *ElasticTaskPool) AppendWorkers(amount int) int {
 
 }
 
-//Wait - Causes the current go routine to wait on this taskpool until the specified
-//       wait time has elapsed; a wait time value of 0 may be specified to wait indefinitely.
+//Wait - Causes the current go routine to wait on this taskpool until the specified wait time has elapsed; a wait time value of 0 may be specified to wait indefinitely.
 func (etp *ElasticTaskPool) Wait(waitTimeInMillis int64) {
 
 	if waitTimeInMillis > 0 {
@@ -230,9 +215,7 @@ func (etp *ElasticTaskPool) GetQueueCount() int {
 	return len(etp.taskQueue)
 }
 
-//RemoveWorker - Attemps to remove the specified worker from the internal queue. Remove will
-//               ONLY be permitted to go ahead where doing so will not result in fewer then
-//               the specified minimum number of threads left remining in the pool.
+//RemoveWorker - Attemps to remove the specified worker from the internal queue. Remove will ONLY be permitted to go ahead where doing so will not result in fewer then the specified minimum number of threads left remining in the pool.
 func (etp *ElasticTaskPool) RemoveWorker(aWorker Worker) {
 
 	etp.workersLock.Lock()

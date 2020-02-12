@@ -7,17 +7,7 @@ import (
 	"time"
 )
 
-//CachedTaskPool - A CachedTaskPool initially starts up with a Worker pool count of zero and
-//                 then proceeds to dynamically scales up its Workers to accomadate the submission
-//                 of new tasks as necessary. Where possible the pool will ALWAYS seek to use existing
-//                 (cached) Workers to service newly submitted tasks; Workers ONLY remain
-//                 in the pool for as long as absoutely necessary and are promptly evicted after
-//                 "maxCachePeriodInMillis" duration specified to the constructor elapses, which may
-//                 well result in the pool count returning to zero following periods of prolonged inactivity.
-//
-//                 CachedTaskPool is the perfect choice for use cases where minimisation of system resource
-//                 consumption is paramount as Worker Threads are ONLY created and indeed retained in the pool for as
-//                 long as they are required and not a moment longer.
+//CachedTaskPool - A CachedTaskPool initially starts up with a Worker pool count of zero and then proceeds to dynamically scales up its Workers to accomadate the submission of new tasks as necessary. Where possible the pool will ALWAYS seek to use existing (cached) Workers to service newly submitted tasks; Workers ONLY remain in the pool for as long as absoutely necessary and are promptly evicted after "maxCachePeriodInMillis" duration specified to the constructor elapses, which may well result in the pool count returning to zero following periods of prolonged inactivity.
 type CachedTaskPool struct {
 	running              bool
 	maxWorkerCount       int
@@ -61,9 +51,7 @@ func (ctp *CachedTaskPool) StartUp() {
 
 }
 
-//ShutDown - ShutsDown the entire pool. All currently executing tasks will be permitted to complete
-//           their respective operations before the pool is gracefully shutdown additionally
-//           no further tasks will be accepted for execution following a call to this routine.
+//ShutDown - ShutsDown the entire pool. All currently executing tasks will be permitted to complete their respective operations before the pool is gracefully shutdown additionally no further tasks will be accepted for execution following a call to this routine.
 func (ctp *CachedTaskPool) ShutDown() {
 
 	ctp.waitGroup.Add(-1)
@@ -88,8 +76,7 @@ func (ctp *CachedTaskPool) getTaskQueue() *[]models.Executable {
 	return &ctp.taskQueue
 }
 
-//IsRunning - Returns a boolean flag which indicates whether or not this TaskPool instance is
-//            currently running, will return TRUE where this is the case and FALSE otherwise.
+//IsRunning - Returns a boolean flag which indicates whether or not this TaskPool instance is currently running, will return TRUE where this is the case and FALSE otherwise.
 func (ctp *CachedTaskPool) IsRunning() bool {
 
 	return ctp.running
@@ -112,8 +99,7 @@ func (ctp *CachedTaskPool) SubmitTask(task models.Executable) {
 
 }
 
-//GetNextTask - Removes and returns the next task in the queue, if there are no
-//              tasks in the queue nil is returned.
+//GetNextTask - Removes and returns the next task in the queue, if there are no tasks in the queue nil is returned.
 func (ctp *CachedTaskPool) GetNextTask() models.Executable {
 
 	ctp.taskQueueLock.Lock()
@@ -210,8 +196,7 @@ func (ctp *CachedTaskPool) AppendWorkers(amount int) int {
 
 }
 
-//Wait - Causes the current go routine to wait on this taskpool until the specified
-//       wait time has elapsed; a wait time value of 0 may be specified to wait indefinitely.
+//Wait - Causes the current go routine to wait on this taskpool until the specified wait time has elapsed; a wait time value of 0 may be specified to wait indefinitely.
 func (ctp *CachedTaskPool) Wait(waitTimeInMillis int64) {
 
 	if waitTimeInMillis > 0 {
@@ -258,10 +243,7 @@ func (ctp *CachedTaskPool) MaxCachePeriodMillis() int64 {
 	return ctp.maxCachePeriodMillis
 }
 
-//SetCustomErrorFunction - Allows a developer-defined custom error function to be
-//                         associated with the taskpool instance. This function will
-//                         be called each time a taskpool worker encounters an error
-//                         whilst processing a task.
+//SetCustomErrorFunction - Allows a developer-defined custom error function to be associated with the taskpool instance. This function will be called each time a taskpool worker encounters an error whilst processing a task.
 func (ctp *CachedTaskPool) SetCustomErrorFunction(customErrorFunction func(interface{})) {
 
 	ctp.customErrorFunction = customErrorFunction

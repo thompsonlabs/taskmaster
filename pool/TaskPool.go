@@ -4,8 +4,7 @@ import (
 	"github.com/thompsonlabs/taskmaster/models"
 )
 
-//TaskPool - Top level TaskPool, allows for tasks to be queued and then subsequently asynchronously processed
-//in parrallel using 2 or more worker threads.
+//TaskPool - Top level TaskPool, allows for tasks to be queued and then subsequently asynchronously processed in parrallel using 2 or more worker threads.
 type TaskPool interface {
 	StartUp()
 	ShutDown()
