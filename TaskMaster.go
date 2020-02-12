@@ -102,6 +102,7 @@ func (tmpb *PoolBuilder) resetValues() {
 	tmpb.maxWorkerCount = 10
 	tmpb.maxCachePeriodInMillis = 0
 	tmpb.minWorkerCount = 0
+	tmpb.customErrorFunction = nil
 }
 
 //Builder - Returns a singular reference to the TaskMasterBuilder.
