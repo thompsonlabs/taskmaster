@@ -25,7 +25,7 @@ func (tmpb *PoolBuilder) NewFixedTaskPool() *PoolBuilder {
 	return tmpb
 }
 
-//NewCachedTaskPool - Create a new Cached TaskPool
+//NewCachedTaskPool - Creates a new Cached TaskPool. A CachedTaskPool initially starts up with a Worker pool count of zero and then proceeds to dynamically scale up its Workers to accomadate the submission of new tasks as necessary. Where possible the pool will ALWAYS seek to use existing (cached) Workers to service newly submitted tasks; Workers ONLY remain in the pool for as long as absoutely necessary and are promptly evicted after "maxCachePeriodInMillis" duration specified to the constructor elapses, which may well result in the pool count returning to zero following periods of prolonged inactivity.
 func (tmpb *PoolBuilder) NewCachedTaskPool(maxCachePeriodInMillis int64) *PoolBuilder {
 
 	tmpb.resetValues()
