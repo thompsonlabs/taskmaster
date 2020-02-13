@@ -1,12 +1,12 @@
 # taskmaster
 A robust, flexible (goroutine based) Thread Pool for Go based on the worker-thread pattern. 
 
-##Overview
+## Overview
 
 TaskMaster is a flexible, managed concurrent ThreadPool implementation for Go. Three distinct pool implementation variants are currently
 made available via the bundled TaskMaster PoolBuilder, each with their own respective benefits and tradeoffs which may be breifly sumarised as follows:
 
-####FixedTaskPool
+#### FixedTaskPool
 
 ```
 taskmaster.Builder().NewFixedTaskPool()
