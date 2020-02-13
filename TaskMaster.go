@@ -16,7 +16,7 @@ type PoolBuilder struct {
 	minWorkerCount         int
 }
 
-//NewFixedTaskPool - Create a new Fixed TaskPool
+//NewFixedTaskPool - Creates a new Fixed TaskPool. A FixedTaskPool starts up with a fixed Worker count (as specified at the time the pool is built) and from that point forward maintains Its Worker count at this constant value until such time that the pool is explitly shutdown or the period specified to the Wait() method elapses (which ever occurs first).
 func (tmpb *PoolBuilder) NewFixedTaskPool() *PoolBuilder {
 
 	tmpb.resetValues()
