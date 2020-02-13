@@ -1,4 +1,6 @@
 # taskmaster
+[![GoDoc](https://godoc.org/github.com/thompsonlabs/taskmaster?status.png)](https://godoc.org/github.com/thompsonlabs/taskmaster)
+
 A robust, flexible (goroutine based) Thread Pool for Go based on the worker-thread pattern. 
 
 ## Overview
@@ -51,6 +53,16 @@ Creates a new Elastic TaskPool. An Elastic TaskPool dynamically scales up **and*
 
 *    Where there is an expectation that there will be really low or really high throughput demands (especially where the delivery will be sporadic
      in nature) then one of the alternative pool implementations in this package may well be a better fit.
+
+
+## Installation
+
+Use the go command
+
+
+
+
+
 
 
 
