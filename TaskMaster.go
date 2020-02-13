@@ -34,7 +34,7 @@ func (tmpb *PoolBuilder) NewCachedTaskPool(maxCachePeriodInMillis int64) *PoolBu
 	return tmpb
 }
 
-//NewElasticTaskPool - Creates a new Elastic TaskPool
+//NewElasticTaskPool - Creates a new Elastic TaskPool. An Elastic TaskPool dynamically scales up AND down to accomadate the submital of tasks for execution. On instantiation a min and max Worker pool value is specified and the pool will then expand and contract to these values respectively in line with the load its required to handle. Idle Workers in the pool over and above the specified minimum will be automatically evicted in due course as part of the pools aforementioned contraction process.
 func (tmpb *PoolBuilder) NewElasticTaskPool(maxCachePeriodInMillis int64, minWorkerCount int) *PoolBuilder {
 
 	tmpb.resetValues()

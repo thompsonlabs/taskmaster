@@ -19,7 +19,7 @@ Creates a new Fixed TaskPool. A FixedTaskPool starts up with a fixed Worker coun
      zero overhead related to the dynamic spwaning of new Workers on-demand.
 
 *    Conversely, where minimising resource consumption is a key goal then one of the alternative
-     pool implementations may be a better fit for your needs.
+     pool implementations in this package may be a better fit for your needs.
 
 
 #### CachedTaskPool
@@ -33,10 +33,27 @@ Creates a new Cached TaskPool. A CachedTaskPool initially starts up with a Worke
      consumption is paramount as Worker Threads are ONLY created and indeed retained in the pool for as
      long as they are required.
 
-*    Where maximum performance is a key factor, one of the alternative pool implementations may be a better
+*    Where maximum performance is a key factor, one of the alternative pool implementations in this package may be a better
      fit as there will generally be some degree of overhead associated with the spawning of new Workers on-demand,
      this will be especially true in cases where the maxCachePeriodInMillis parameter is incorrectly set resulting in
      Cached Workers being evicted from the pool prematurely.
+
+
+#### ElasticTaskPool
+
+```
+taskmaster.Builder(),NewElasticTaskPool(maxCachePeriodInMillis int64, minWorkerCount int)
+```
+Creates a new Elastic TaskPool. An Elastic TaskPool dynamically scales up **and** down to accomadate the submittal of tasks for execution. On instantiation a min and max Worker pool value is specified and the pool will then expand and contract between these values respectively in line with the load its required to handle. Idle Workers in the pool over and above the specified minimum will be automatically evicted in due course as part of the pools aforementioned contraction process.
+
+*    ElasticTaskPool is a happy medium between the other TaskPool varients as it allows for there to **always** be some amount 
+     of dedicated pool Worker resources on-hand to immediately service tasks and provides the ability to scale up (and back down) from there as necessary.
+
+*    Where there is an expectation that there will be really low or really high throughput demands (especially where the delivery will be sporadic
+     in nature) then one of the alternative pool implementations in this package may well be a better fit.
+
+
+
 
 
 
