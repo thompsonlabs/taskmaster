@@ -174,7 +174,7 @@ func (tt *TestTask) Execute() {
 
 Copyright (C) 2019-2020 by ThompsonLabs | [thompsonlabs@outlook.com](mailto:thompsonlabs@outlook.com)
 
-TaskMaster package released under MIT Licence. See [LICENSE](https://github.com/thompsonlabs/taskmaster/blob/master/LICENSE)
+TaskMaster package released under MIT Licence. See [LICENSE](https://github.com/thompsonlabs/taskmaster/blob/master/LICENSE) for further details.
 
 
 
