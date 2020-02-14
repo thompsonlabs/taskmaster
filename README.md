@@ -165,6 +165,17 @@ func (tt *TestTask) Execute() {
 
 ```
 
+## Documentation
+
+[Documentation](https://godoc.org/github.com/thompsonlabs/taskmaster) is hosted at the GoDoc project.
+
+
+## Copyright
+
+Copyright (C) 2019-2020 by ThompsonLabs | [thompsonlabs@outlook.com](mailto:thompsonlabs@outlook.com)
+
+TaskMaster package released under MIT Licence. See [LICENSE](https://github.com/thompsonlabs/taskmaster/blob/master/LICENSE)
+
 
 
 

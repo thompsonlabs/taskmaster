@@ -21,7 +21,7 @@ func main() {
 
 func buildTaskPool() pool.TaskPool {
 
-	/**
+	/**m
 	   Here we build a task pool according to our requirements
 	   for the purposes of this example we elect to build an
 	   ElasticTaskPool which allows us to specify as parameters:
@@ -141,7 +141,10 @@ func (tt *TestTask) Execute() {
 		panic("7 Index is not allowed.")
 	}
 
+	//sleep to simulate some time taken to complete the task
 	time.Sleep(time.Millisecond * 3000)
+
+	//print success status to the console.
 	fmt.Println("Task: " + strconv.Itoa(tt.exeIdx) + " Successfully executed")
 }
 
