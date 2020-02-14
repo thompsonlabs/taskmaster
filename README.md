@@ -73,6 +73,101 @@ $ go get github.com/thompsonlabs/taskmaster
 Here a basic (and hopefully intuitive) example is provided to quickly get users started using TaskMaster. Please note a more comprehensive **interactive** example
 may be found in the **example package** please do also view the project [Documentation](https://godoc.org/github.com/thompsonlabs/taskmaster) for further details.
 
+```go
+
+package main
+
+import(
+
+"fmt"
+"github.com/thompsonlabs/taskmaster"
+"time"
+"strconv"
+
+)
+
+
+func main(){
+
+/** 
+   utilise the PoolBuilder to build and configure a new TaskPool instance
+   here we have elected to use the ElasticTaskPool varient but the process
+   is exactly the same for other pool implementations as they are all returned
+   from builder as the abstract TaskPool type.
+ */
+
+//build a taskpool according to your requirements
+var taskpool = taskmaster.
+                Builder().
+                NewElasticTaskPool(60000, 5).
+                SetMaxQueueCount(50).
+                SetMaxWorkerCount(20).
+                Build()
+
+//startup taskpool
+taskpool.StartUp()
+
+//submit a 30 test tasks to the pool for execution (the TestTask struct is defined below)
+for i := 0; i < 30; i++ {
+
+  taskpool.SubmitTask(NewTestTask(i))
+
+}
+
+
+//wait on the pool for the 15 seconds to allow time for all tasks to execute a wait
+//value of 0 may be specified to wait indefinetely. Where 0 IS specified the pool
+//should be started from ANOTHER Go Routine to avoid the Main Thread blocking indefinitely
+//"taskPool.ShutDown()" may then subsequently be explictly called, from the Main thread, to
+//shutdown the pool at some point in the future
+taskpool.Wait(10000)
+
+
+fmt.Println("Wait period elapsed; the Pool has been successfully, automatically shutdown.")
+}
+
+
+
+
+
+//TestTask - A test task created for the purposes of this example. The task
+//           implements the requisite "Executable" interface (containing a single Execute() function)
+//           and simply prints a string to the console on execution.
+type TestTask struct {
+        exeIdx int
+}
+
+//NewTestTask Creates a and returns a new TestTask instance.
+func NewTestTask(anIndex int) *TestTask {
+
+        return &TestTask{
+
+                exeIdx: anIndex}
+}
+
+
+//Execute - Overrriden from the Executable interface; here is where the operation
+//          the TaskPool is required to run should be defined.
+func (tt *TestTask) Execute() {
+
+        //to test the pools panic recovery
+        if tt.exeIdx == 7 {
+
+                panic("7 Index is not allowed.")
+        }
+
+        //sleep to simulate some time taken to complete the task
+        time.Sleep(time.Millisecond * 3000)
+
+        //print success status to the console.
+        fmt.Println("Task: " + strconv.Itoa(tt.exeIdx) + " Successfully executed")
+} 
+
+```
+
+
+
+
 
 
 
