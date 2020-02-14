@@ -11,7 +11,7 @@ made available via the bundled TaskMaster PoolBuilder, each with their own respe
 
 #### FixedTaskPool
 
-```
+```go
 taskmaster.Builder().NewFixedTaskPool()
 ```
 Creates a new Fixed TaskPool. A FixedTaskPool starts up with a fixed Worker count (as specified at the time the pool is built) and from that point forward maintains Its Worker count at this constant value until such time that the pool is explitly shutdown or the period specified to the Wait() method elapses (which ever occurs first).
@@ -27,7 +27,7 @@ Creates a new Fixed TaskPool. A FixedTaskPool starts up with a fixed Worker coun
 
 #### CachedTaskPool
 
-```
+```go
 taskmaster.Builder().NewCachedTaskPool(maxCachePeriodInMillis int64)
 ```
 Creates a new Cached TaskPool. A CachedTaskPool initially starts up with a Worker pool count of zero and then proceeds to dynamically scale up its Workers to accomadate the submission of new tasks as necessary. Where possible the pool will **always** seek to use existing (cached) Workers to service newly submitted tasks; Workers ONLY remain in the pool for as long as absoutely necessary and are promptly evicted after "maxCachePeriodInMillis" duration specified to the constructor elapses, which may well result in the pool count returning to zero following periods of prolonged inactivity.
@@ -44,7 +44,7 @@ Creates a new Cached TaskPool. A CachedTaskPool initially starts up with a Worke
 
 #### ElasticTaskPool
 
-```
+```go
 taskmaster.Builder(),NewElasticTaskPool(maxCachePeriodInMillis int64, minWorkerCount int)
 ```
 Creates a new Elastic TaskPool. An Elastic TaskPool dynamically scales up **and** down to accomadate the submittal of tasks for execution. On instantiation a min and max Worker pool value is specified and the pool will then expand and contract between these values respectively in line with the load its required to handle. Idle Workers in the pool over and above the specified minimum will be automatically evicted in due course as part of the pools aforementioned contraction process.
@@ -61,6 +61,10 @@ Please see the full package [Documentation](https://godoc.org/github.com/thompso
 ## Installation
 
 Use the `go` command
+
+```
+$ go get github.com/thompsonlabs/taskmaster
+```
 
 
 
