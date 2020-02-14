@@ -53,14 +53,14 @@ Creates a new Elastic TaskPool. An Elastic TaskPool dynamically scales up **and*
      of dedicated pool Worker resources on-hand to immediately service tasks and provides the ability to scale up (and back down) from there as necessary.
 
 *    Where there is an expectation that there will be really low or really high throughput demands (especially where the delivery will be sporadic
-     in nature) then one of the alternative pool implementations in this package may well be a better fit.
+     in nature) then one of the alternative pool implementations in this package may be a better fit.
 
 Please see the full package [Documentation](https://godoc.org/github.com/thompsonlabs/taskmaster) for further information.
 
 
 ## Installation
 
-Use the go command
+Use the `go` command
 
 
 
