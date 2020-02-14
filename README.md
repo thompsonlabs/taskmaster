@@ -68,6 +68,11 @@ Use the `go` command
 $ go get github.com/thompsonlabs/taskmaster
 ```
 
+## Example
+
+Here a basic (and hopefully intuitive) example is provided to quickly get users started using TaskMaster. Please note a more comprehensive **interactive** example
+may be found in the **example package** please do also view the project [Documentation](https://godoc.org/github.com/thompsonlabs/taskmaster) for further details.
+
 
 
 
