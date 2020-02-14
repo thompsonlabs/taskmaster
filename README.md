@@ -1,6 +1,6 @@
 # taskmaster
 [![GoDoc](https://godoc.org/github.com/thompsonlabs/taskmaster?status.png)](https://godoc.org/github.com/thompsonlabs/taskmaster)
-
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://godoc.org/github.com/thompsonlabs/taskmaster)
 A robust, flexible (goroutine based) Thread Pool for Go based on the worker-thread pattern. 
 
 ## Overview
