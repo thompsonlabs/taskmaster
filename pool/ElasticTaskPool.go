@@ -84,20 +84,28 @@ func (etp *ElasticTaskPool) IsRunning() bool {
 	return etp.running
 }
 
-//SubmitTask - Queues a task for asynchronous execution in an alternate thread/go-routine.
-func (etp *ElasticTaskPool) SubmitTask(task models.Executable) {
+//SubmitTask - Queues a task for asynchronous execution in an alternate thread/go-routine. A bool is returned to indicate whether or not the task was successfully submitted to the pool.
+func (etp *ElasticTaskPool) SubmitTask(task models.Executable) bool {
+
+	appended := false
 
 	etp.taskQueueLock.Lock()
 
-	etp.taskQueue = append(etp.taskQueue, task)
+	if len(etp.taskQueue) < etp.maxQueueCount {
 
-	if (len(etp.taskQueue) > etp.IdleWorkersCount()) && len(*etp.workers)+1 <= etp.maxWorkerCount {
+		etp.taskQueue = append(etp.taskQueue, task)
 
-		etp.AppendWorkers(1)
+		appended = true
 
+		if (len(etp.taskQueue) > etp.IdleWorkersCount()) && len(*etp.workers)+1 <= etp.maxWorkerCount {
+
+			etp.AppendWorkers(1)
+
+		}
 	}
-
 	etp.taskQueueLock.Unlock()
+
+	return appended
 
 }
 

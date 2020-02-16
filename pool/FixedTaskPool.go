@@ -87,13 +87,23 @@ func (ftp *FixedTaskPool) IsRunning() bool {
 	return ftp.running
 }
 
-//SubmitTask - Queues a task for asynchronous execution in an alternate thread/go-routine.
-func (ftp *FixedTaskPool) SubmitTask(task models.Executable) {
+//SubmitTask - Queues a task for asynchronous execution in an alternate thread/go-routine. A bool is returned to indicate whether or not the task was successfully submitted to the pool.
+func (ftp *FixedTaskPool) SubmitTask(task models.Executable) bool {
+
+	appended := false
 
 	ftp.taskQueueLock.Lock()
-	ftp.taskQueue = append(ftp.taskQueue, task)
+
+	if len(ftp.taskQueue) < ftp.maxQueueCount {
+
+		ftp.taskQueue = append(ftp.taskQueue, task)
+
+		appended = true
+
+	}
 	ftp.taskQueueLock.Unlock()
 
+	return appended
 }
 
 //GetNextTask - Removes and returns the next task in the queue, if there are no tasks in the queue nil is returned.

@@ -9,7 +9,7 @@ type TaskPool interface {
 	StartUp()
 	ShutDown()
 	IsRunning() bool
-	SubmitTask(task models.Executable)
+	SubmitTask(task models.Executable) bool
 	GetNextTask() models.Executable
 	GetMaxWorkerCount() int
 	GetMaxQueueCount() int

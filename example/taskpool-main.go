@@ -21,7 +21,7 @@ func main() {
 
 func buildTaskPool() pool.TaskPool {
 
-	/**m
+	/**
 	   Here we build a task pool according to our requirements
 	   for the purposes of this example we elect to build an
 	   ElasticTaskPool which allows us to specify as parameters:

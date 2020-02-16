@@ -82,20 +82,30 @@ func (ctp *CachedTaskPool) IsRunning() bool {
 	return ctp.running
 }
 
-//SubmitTask - Queues a task for asynchronous execution in an alternate thread/go-routine.
-func (ctp *CachedTaskPool) SubmitTask(task models.Executable) {
+//SubmitTask - Queues a task for asynchronous execution in an alternate thread/go-routine. A bool is returned to indicate whether or not the task was successfully submitted to the pool.
+func (ctp *CachedTaskPool) SubmitTask(task models.Executable) bool {
+
+	appended := false
 
 	ctp.taskQueueLock.Lock()
 
-	ctp.taskQueue = append(ctp.taskQueue, task)
+	if len(ctp.taskQueue) < ctp.maxQueueCount {
 
-	if (len(ctp.taskQueue) > ctp.IdleWorkersCount()) && len(*ctp.workers)+1 <= ctp.maxWorkerCount {
+		ctp.taskQueue = append(ctp.taskQueue, task)
 
-		ctp.AppendWorkers(1)
+		appended = true
+
+		if (len(ctp.taskQueue) > ctp.IdleWorkersCount()) && len(*ctp.workers)+1 <= ctp.maxWorkerCount {
+
+			ctp.AppendWorkers(1)
+
+		}
 
 	}
 
 	ctp.taskQueueLock.Unlock()
+
+	return appended
 
 }
 
