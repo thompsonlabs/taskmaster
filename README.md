@@ -47,7 +47,7 @@ Creates a new Cached TaskPool. A CachedTaskPool initially starts up with a Worke
 #### ElasticTaskPool
 
 ```go
-taskmaster.Builder(),NewElasticTaskPool(maxCachePeriodInMillis int64, minWorkerCount int)
+taskmaster.Builder().NewElasticTaskPool(maxCachePeriodInMillis int64, minWorkerCount int)
 ```
 Creates a new Elastic TaskPool. An Elastic TaskPool dynamically scales up **and** down to accomadate the submittal of tasks for execution. On instantiation a min and max Worker pool value is specified and the pool will then expand and contract between these values respectively in line with the load its required to handle. Idle Workers in the pool over and above the specified minimum will be automatically evicted in due course as part of the pools aforementioned contraction process.
 
